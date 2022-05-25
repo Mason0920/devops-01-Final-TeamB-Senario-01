@@ -4,31 +4,26 @@ const cors = require('cors');
 const { Producer } = require('sqs-producer');
 const port = 3000
 const AWS = require("aws-sdk");
-AWS.config.update({region: 'ap-northeast-2'});
 const credentials = new AWS.SharedIniFileCredentials({
-  profile: "mason",
+  profile: "default",
 });
-var sqs = new AWS.SQS({credentials: credentials, apiVersion: '2012-11-05'});
-var params = {
- DelaySeconds: 1,
- MessageBody: "reservation succeeded",
- QueueUrl: "https://sqs.ap-northeast-2.amazonaws.com/523139768306/EC2_SQS_ECS"
-};
+const sns = new AWS.SNS({ credentials: credentials, region: "ap-northeast-2" });
 
 app.use(express.json());
 
 app.get('/', (req, res) => res.send('Hello june World!')) 
 
 app.post('/api/post/june', (req, res) => {
-  sqs.sendMessage(params, function(err, data) {
-  if (err) {
-    console.log("Error", err);
-  } else {
-    console.log("Success", data);
-    }
-  })
-  res.statusCode(200)
-    .send("message accepted");
+  let params = {
+    Message: `${req.body}`,
+    // https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SQS.html#sendMessage-property
+    TopicArn: "arn:aws:sns:ap-northeast-2:523139768306:test"
+  };
+  sns.publish(params, function (err, data) {
+    if (err) console.log(err, err.stack);
+    else console.log(data);
+    return res.status(200).send({ message: `${req.body}` });
+  });
 })
   
 app.listen(port, () => {
