@@ -2,7 +2,7 @@ name: 'Terraform'
 
 on:
   push:
-    branches: [terraform-release]
+    branches: [main]
   pull_request:
 
 jobs:
@@ -32,5 +32,5 @@ jobs:
         run: terraform plan
         
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/terraform-release' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         run: terraform apply -auto-approve
