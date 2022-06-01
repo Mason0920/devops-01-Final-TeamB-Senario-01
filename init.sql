@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `reservations`( 
+﻿CREATE TABLE IF NOT EXISTS `reservations`( 
 id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT, 
 departure varchar(200) NOT NULL, 
 destination varchar(200) NOT NULL, 

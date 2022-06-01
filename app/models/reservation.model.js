@@ -59,6 +59,6 @@ Reservation.getAll = result =>{
     });
 };
 
-Reservation
+
 
 module.exports = Reservation;

@@ -1,4 +1,5 @@
 const Reservation = require("../models/reservation.model.js");
+const createRedisClient = require("../models/connectRedis.js");
 const { Producer } = require('sqs-producer');
 
 // 새 객체 생성
@@ -15,7 +16,7 @@ exports.create = (req,res)=>{
       date: req.body.date,
       user_name: req.body.user_name
     });
-   
+    
     // 데이터베이스에 저장
     Reservation.create(reservation, (err, data) =>{
         if(err){
@@ -25,30 +26,29 @@ exports.create = (req,res)=>{
             });
         };
     })
+
+    redisClient.then((client) => { 
+      // do something with the client
+      client.set("Hello", "Real World").then(()=> { 
+         // can do something here 
+      });
+    });
 };
 
-exports.TOSQS = (req, res) => {
-  const producer = Producer.create({
-    queueUrl: 'https://sqs.ap-northeast-2.amazonaws.com/523139768306/EC2_SQS_ECS',
-    region: 'ap-northeast-2'
-  });
+// exports.TOSQS = (req, res) => {
+//   const producer = Producer.create({
+//     queueUrl: 'https://sqs.ap-northeast-2.amazonaws.com/523139768306/EC2_SQS_ECS',
+//     region: 'ap-northeast-2'
+//   });
    
   
-  producer.send([{
-    id: 'id1',
-    body: 'Reservation : OK'
-  }]);
+//   producer.send([{
+//     id: 'id1',
+//     body: 'Reservation : OK'
+//   }]);
    
-  res.send('Resevation : Successed')
-}
-
-exports.MERGE_DB_SQS = async (req, res) => {
-  await this.create()
-  await this.TOSQS()
-  console.log('왔냐')
-  res.json({ code: 200, Reservation: 'OK'})
-};
-
+//   res.send('Resevation : Successed')
+// }
 
 // 전체 조회 
 exports.findAll = (req,res)=>{
