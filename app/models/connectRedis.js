@@ -8,7 +8,7 @@ async function createRedisClient () {
 
   await client.connect();
 
-  return client;//
+  return client;
 }
 
 module.exports = createRedisClient();
