@@ -1,5 +1,3 @@
-# devops-01-Final-TeamB
-doyeon
-crow
-this is Mason branch
-서현준
+# TERRAFORM
+
+aws 인프라 구축
