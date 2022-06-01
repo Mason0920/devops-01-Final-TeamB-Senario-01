@@ -2,9 +2,9 @@ name: deploy
 
 on:
   push:
-    branches: [crow]
+    branches: [release]
   pull_request:
-    branches: [crow]
+    branches: [release]
 
 jobs:
   build:
