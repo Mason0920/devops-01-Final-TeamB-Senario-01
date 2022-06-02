@@ -10,6 +10,7 @@ resource "aws_launch_template" "init_template" {
 
   instance_type = "t3.small"
 
+  key_name = "peach.pem"
 
   metadata_options {
     http_endpoint               = "enabled"
