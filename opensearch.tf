@@ -16,15 +16,6 @@ resource "aws_opensearch_domain" "test-opensearch" {
     }
 
 
-  vpc_options {
-    subnet_ids = [aws_subnet.subnet_private1.id]
-  }
-
-}
-
-resource "aws_elasticsearch_domain_policy" "os-policy" {
-    domain_name = "test-opensearch"
-
     access_policies = <<POLICIES
     {
       "Version": "2012-10-17",
@@ -44,4 +35,12 @@ resource "aws_elasticsearch_domain_policy" "os-policy" {
       ]
     }
     POLICIES
-    }
+    
+
+  vpc_options {
+    subnet_ids = [aws_subnet.subnet_private1.id]
+  }
+
+}
+
+
