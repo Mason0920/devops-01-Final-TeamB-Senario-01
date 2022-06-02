@@ -3,13 +3,13 @@ resource "aws_launch_template" "init_template" {
 
   disable_api_termination = true
 
-
   image_id = data.aws_ami.ubuntu.id
 
   instance_initiated_shutdown_behavior = "terminate"
 
   instance_type = "t3.small"
 
+  key_name = "peach.pem"
 
   metadata_options {
     http_endpoint               = "enabled"

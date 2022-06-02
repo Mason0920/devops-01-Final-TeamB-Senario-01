@@ -123,3 +123,8 @@ resource "aws_autoscaling_attachment" "asg_attachment" {
   autoscaling_group_name = aws_autoscaling_group.reserv_api_server.id
   lb_target_group_arn = aws_lb_target_group.project4_tg.arn
 }
+
+resource "aws_key_pair" "peach" {
+  key_name   = "peach.pem"
+  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQChFTy2U9QG2BUQbgNRrFFmQzUr9DdXIdr/1W8sHzNWA0XbrKV6XZbb7sUg8bX5aZyqiAJTfxipZWpEv88BX5j7kwVfpHbq4yTB1DktAVcAc1cC8HeFJZfEjg4QqorsaZBXwy0zdqXE3LDuMtlwCe3twx+D+/8Vw5ZUxwkFisWm755HiRMyWe0B+4bRw9WpH0wMu7qJ/b/D8ow5RKArX4HGC4YaG/L/ct2uNrl+58H30Pufm/8X0RBG9rTHq5AhgSVf4fzDxr+JWyrc1KIz3AgjwEH5TtyDWBpNIhWUfRhGjBp26AAzvgLP4w9iWB5fYmVifoSqlCVFtxeMaoODJI7J peach"
+}
