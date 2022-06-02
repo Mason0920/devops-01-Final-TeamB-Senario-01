@@ -33,7 +33,7 @@ resource "aws_opensearch_domain" "test2-opensearch" {
       # master_user_name     = "admin"
       # master_user_password = "Aa!12341234"
       # You can also use IAM role/user ARN
-      master_user_arn = "arn:aws:iam::351954682436:user/terraform"
+      master_user_arn = "aws_opensearch_domain.test2-opensearch.arn"
     }
 }
   encrypt_at_rest {
@@ -56,10 +56,10 @@ resource "aws_opensearch_domain" "test2-opensearch" {
     {
       "Effect": "Allow",
       "Principal": {
-        "AWS": "arn:aws:iam::351954682436:user/terraform"
+        "AWS": "aws_opensearch_domain.test2-opensearch.arn"
       },
       "Action": "es:ESHttpGet",
-      "Resource": "arn:aws:es:ap-northeast-2:351954682436:domain/test-1/*"
+      "Resource": "${aws_opensearch_domain.test2-opensearch.arn}/*"
     },
     {
       "Effect": "Allow",
@@ -67,7 +67,7 @@ resource "aws_opensearch_domain" "test2-opensearch" {
         "AWS": "*"
       },
       "Action": "es:*",
-      "Resource": "arn:aws:es:ap-northeast-2:351954682436:domain/test-1/*",
+      "Resource": "${aws_opensearch_domain.test2-opensearch.arn}/*",
       "Condition": {
         "IpAddress": {
           "aws:SourceIp": "218.235.89.144/32"
